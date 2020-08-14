@@ -1,30 +1,30 @@
 const vendedoras = ["Ada", "Grace", "Hedy", "Sheryl"];
 
 const ventas = [
-    [ 100000000, 4, 2, 2019, 'Grace', 'Centro', ['Monitor GPRS 3000',
-    'Motherboard ASUS 1500'] ],
-    [ 100000001, 1, 1, 2019, 'Ada', 'Centro', ['Monitor GPRS 3000',
-    'Motherboard ASUS 1500'] ],
-    [ 100000002, 2, 1, 2019, 'Grace', 'Caballito', ['Monitor ASC 543',
-    'Motherboard MZI', 'HDD Toyiva'] ],
-    [ 100000003, 10, 1, 2019, 'Ada', 'Centro', ['Monitor ASC 543',
-    'Motherboard ASUS 1200'] ],
-    [ 100000004, 12, 1, 2019, 'Grace', 'Caballito', ['Monitor GPRS 3000',
-    'Motherboard ASUS 1200'] ],
-    [ 100000005, 21, 3, 2019, 'Hedy', 'Caballito', ['Monitor ASC 543',
-    'Motherboard ASUS 1200', 'RAM Quinston'] ]
+    [100000000, 4, 2, 2019, 'Grace', 'Centro', ['Monitor GPRS 3000',
+        'Motherboard ASUS 1500']],
+    [100000001, 1, 1, 2019, 'Ada', 'Centro', ['Monitor GPRS 3000',
+        'Motherboard ASUS 1500']],
+    [100000002, 2, 1, 2019, 'Grace', 'Caballito', ['Monitor ASC 543',
+        'Motherboard MZI', 'HDD Toyiva']],
+    [100000003, 10, 1, 2019, 'Ada', 'Centro', ['Monitor ASC 543',
+        'Motherboard ASUS 1200']],
+    [100000004, 12, 1, 2019, 'Grace', 'Caballito', ['Monitor GPRS 3000',
+        'Motherboard ASUS 1200']],
+    [100000005, 21, 3, 2019, 'Hedy', 'Caballito', ['Monitor ASC 543',
+        'Motherboard ASUS 1200', 'RAM Quinston']]
 ]
 
 const precios = [
-    [ 'Monitor GPRS 3000', 200 ],
-    [ 'Motherboard ASUS 1500', 120 ],
-    [ 'Monitor ASC 543', 250 ],
-    [ 'Motherboard ASUS 1200', 100 ],
-    [ 'Motherboard MZI', 30 ],
-    [ 'HDD Toyiva', 90 ],
-    [ 'HDD Wezter Dishital', 75 ],
-    [ 'RAM Quinston', 110 ],
-    [ 'RAM Quinston Fury', 230 ]
+    ['Monitor GPRS 3000', 200],
+    ['Motherboard ASUS 1500', 120],
+    ['Monitor ASC 543', 250],
+    ['Motherboard ASUS 1200', 100],
+    ['Motherboard MZI', 30],
+    ['HDD Toyiva', 90],
+    ['HDD Wezter Dishital', 75],
+    ['RAM Quinston', 110],
+    ['RAM Quinston Fury', 230]
 ];
 
 const sucursales = ['Centro', 'Caballito'];
@@ -38,7 +38,7 @@ const buscarPrecio = (componente) => {
             return precios[i][1];
         }
     }
-    throw new Error (`El componente ${componente} no se encuentra en la lista de precios`);
+    throw new Error(`El componente ${componente} no se encuentra en la lista de precios`);
 }
 
 const obtenerComponentesVendidos = (indice, filtro) => {
@@ -90,7 +90,7 @@ de los precios de cada componente incluido.*/
 
 const precioMaquina = (componentes) => {
     let precio = 0;
-    componentes.forEach(componente => { 
+    componentes.forEach(componente => {
         precio += buscarPrecio(componente);
     });
     return precio;
@@ -113,7 +113,7 @@ parámetro, se asume que está identificada por la variable ventas.*/
 
 const cantidadVentasComponente = (componente) => {
     if (precios.filter(producto => producto[0] === componente).length === 0) {
-        throw new Error (`El componente ${componente} no se encuentra a la venta`);
+        throw new Error(`El componente ${componente} no se encuentra a la venta`);
     }
     let cantidadDeVentas = 0;
     ventas.forEach(venta => {
@@ -158,6 +158,21 @@ const componenteMasVendido = () => {
 
 // console.log( componenteMasVendido() ); // Monitor GPRS 3000
 
+const componenteMasVendido = () => {
+    let vendidos = [];
+    for (venta of ventas) {
+        for (i = 0; i < venta[6].length; i++) {
+            const componente = venta[6][i]
+            vendidos.push(componente);
+        };
+    };
+    for (i = 0; i <= vendidos.length; i++) {
+        let componente = vendidos[i];
+        if (componente === cantidadVentasComponente(vendidos[i]));
+        return componente;
+    }
+};
+
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
 fecha. */
@@ -171,11 +186,25 @@ const ventasSucursal = sucursal => {
 
 // console.log(ventasSucursal("Centro")); // 990 
 
+
+const ventasSucursal = sucursal => {
+    validarSucursal(sucursal);
+    const ventasSucursal = ventas.filter (venta => venta[5] === sucursal);
+    let componentes = [];
+    ventasSucursal.forEach (venta => componentes.push (venta[6]));
+    const componentesVendidos = componentes.flat ();
+    console.log(componentesVendidos);
+    return componentesVendidos.reduce ((acumulador, componente) => {
+        return acumulador + buscarPrecio(componente);
+    }, 0 );
+}
+
+
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
 const mejorVendedora = () => {
     const importesVendidos = vendedoras.map(vendedora => ventasVendedora(vendedora));
-    const mayorImporte =  Math.max.apply(null, importesVendidos);
+    const mayorImporte = Math.max.apply(null, importesVendidos);
     return vendedoras[importesVendidos.indexOf(mayorImporte)];
 }
 
@@ -202,6 +231,23 @@ const ventaPromedio = () => {//// Esta ok
 }
 
 // console.log(ventaPromedio()); // 353 
+
+const ventaPromedio = () => {//// Esta ok
+    const values = [];
+    for (venta of ventas) {
+        let precio = 0;
+        venta[6].forEach(componente => {
+            precio += buscarPrecio(componente);
+        });
+        values.push(precio)
+    }
+    let suma = 0;
+    for (i = 0; i < values.length; i++) {
+        suma += values[i];
+    }
+    let promedio = suma / values.length;
+    return Math.floor(promedio);
+}
 
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
