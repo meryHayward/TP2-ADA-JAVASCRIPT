@@ -164,6 +164,8 @@ retorna el importe de las ventas totales realizadas por una sucursal sin límite
 fecha.
 console.log( ventasSucursal("Centro") ); // 4195 */
 
+
+
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
 const mejorVendedora = () => {
