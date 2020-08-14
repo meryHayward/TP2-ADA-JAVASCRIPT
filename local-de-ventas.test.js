@@ -27,8 +27,6 @@ const precios = [
     ['RAM Quinston Fury', 230]
 ];
 
-/* hola vicky, dame permiso */
-
 const sucursales = ['Centro', 'Caballito'];
 
 // FUNCIONES AUXILIARES // 
