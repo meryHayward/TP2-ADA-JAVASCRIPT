@@ -1,5 +1,5 @@
 ## TRABAJO PRÁCTICO JAVASCRIPT I
-### LOCAL DE VENTAS DE PCS
+### LOCAL DE VENTAS DE PCS :woman_technologist:
 #### REQUISITOS:
 - Se deben respetar los nombres de las funciones
 - Buena tabulación del código
