@@ -149,6 +149,20 @@ retorna el importe de las ventas totales realizadas por una sucursal sin límite
 fecha.
 console.log( ventasSucursal("Centro") ); // 4195 */
 
+
+const ventasSucursal = sucursal => {
+    validarSucursal(sucursal);
+    const ventasSucursal = ventas.filter (venta => venta[5] === sucursal);
+    let componentes = [];
+    ventasSucursal.forEach (venta => componentes.push (venta[6]));
+    const componentesVendidos = componentes.flat ();
+    console.log(componentesVendidos);
+    return componentesVendidos.reduce ((acumulador, componente) => {
+        return acumulador + buscarPrecio(componente);
+    }, 0 );
+}
+
+
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
 const mejorVendedora = () => {
