@@ -142,12 +142,12 @@ const ventasVendedora = (nombre) => {
 /*4. componenteMasVendido(): Devuelve el nombre del componente que más ventas
 tuvo históricamente. El dato de la cantidad de ventas es el que indica la función
 cantidadVentasComponente
-console.log( componenteMasVendido() ); // Monitor GPRS 3000 */
+// console.log( componenteMasVendido() ); // Monitor GPRS 3000 
 
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
 fecha.
-console.log( ventasSucursal("Centro") ); // 4195 */
+// console.log( ventasSucursal("Centro") ); // 4195
 
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
@@ -161,7 +161,7 @@ const mejorVendedora = () => {
 
 /*7. ventaPromedio(): Debe retornar el importe promedio por venta, como un número
 entero sin decimales redondeado siempre para abajo.
-console.log( ventaPromedio() ); // 353 */
+// console.log( ventaPromedio() ); // 353 
 
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
