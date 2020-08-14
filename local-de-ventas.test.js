@@ -32,7 +32,7 @@ const sucursales = ['Centro', 'Caballito'];
 // FUNCIONES AUXILIARES // 
 
 const buscarPrecio = (componente) => {
-    // Toma un componente y devuelve el precio del mismo // 
+    // Toma un componente y devuelve el precio del mismo //
     for (i = 0; i < precios.length; i++) {
         if (precios[i][0] === componente) {
             return precios[i][1];
@@ -41,14 +41,12 @@ const buscarPrecio = (componente) => {
     throw new Error (`El componente ${componente} no se encuentra en la lista de precios`);
 }
 
-const obtenerCompoenentesVendidos = (nombre) => {
-    // Toma el nombre de una vendedora y devuelve una lista de componentes vendidos // 
-    const ventasPorVendedora = ventas.filter(venta => venta[4] === nombre);
+const obtenerComponentesVendidos = (indice, filtro) => {
+    // Funcion para obtener componentes vendidos. Si indice = 4 filtra por vendedora, si indice = 5 filtra por sucursal//
+    const ventasFiltradas = ventas.filter(venta => venta[indice] === filtro);
     let componentesVendidos = [];
-    ventasPorVendedora.forEach(venta => componentesVendidos.push(venta[6]));
-    return componentesVendidos.reduce((acumulador,componente) => {
-        return acumulador.concat(componente);
-    }, []);
+    ventasFiltradas.forEach(venta => componentesVendidos.push(venta[6]));
+    return componentesVendidos.flat();
 }
 
 const validarVendedora = (nombre) => {
@@ -132,7 +130,7 @@ retorna el importe total de ventas realizadas por dicha vendedora. */
 
 const ventasVendedora = (nombre) => {
     validarVendedora(nombre);
-    return obtenerCompoenentesVendidos(nombre).reduce((acumulador, componente) => {
+    return obtenerComponentesVendidos(4,nombre).reduce((acumulador, componente) => {
         return acumulador + buscarPrecio(componente);
     }, 0);
 }
@@ -141,13 +139,37 @@ const ventasVendedora = (nombre) => {
 
 /*4. componenteMasVendido(): Devuelve el nombre del componente que más ventas
 tuvo históricamente. El dato de la cantidad de ventas es el que indica la función
-cantidadVentasComponente
-// console.log( componenteMasVendido() ); // Monitor GPRS 3000 
+cantidadVentasComponente */ 
+
+const componenteMasVendido = () => {
+    let vendidos = [];
+    for (venta of ventas) {
+        for (i = 0; i < venta[6].length; i++) {
+            const componente = venta[6][i]
+            vendidos.push(componente);
+        };
+    };
+    for (i = 0; i <= vendidos.length; i++) {
+        let componente = vendidos[i];
+        if (componente === cantidadVentasComponente(vendidos[i]));
+        return componente;
+    }
+};
+
+// console.log( componenteMasVendido() ); // Monitor GPRS 3000
 
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
-fecha.
-// console.log( ventasSucursal("Centro") ); // 4195
+fecha. */
+
+const ventasSucursal = sucursal => {
+    validarSucursal(sucursal);
+    return obtenerComponentesVendidos(5, sucursal).reduce ((acumulador, componente) =>{
+        return acumulador + buscarPrecio(componente);
+    }, 0);
+}
+
+// console.log(ventasSucursal("Centro")); // 990 
 
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
@@ -160,8 +182,26 @@ const mejorVendedora = () => {
 // console.log(mejorVendedora()); // Grace 
 
 /*7. ventaPromedio(): Debe retornar el importe promedio por venta, como un número
-entero sin decimales redondeado siempre para abajo.
-// console.log( ventaPromedio() ); // 353 
+entero sin decimales redondeado siempre para abajo.*/
+
+const ventaPromedio = () => {//// Esta ok
+    const values = [];
+    for (venta of ventas) {
+        let precio = 0;
+        venta[6].forEach(componente => {
+            precio += buscarPrecio(componente);
+        });
+        values.push(precio)
+    }
+    let suma = 0;
+    for (i = 0; i < values.length; i++) {
+        suma += values[i];
+    }
+    let promedio = suma / values.length;
+    return Math.floor(promedio);
+}
+
+// console.log(ventaPromedio()); // 353 
 
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
