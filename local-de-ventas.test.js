@@ -158,21 +158,6 @@ const componenteMasVendido = () => {
 
 // console.log( componenteMasVendido() ); // Monitor GPRS 3000
 
-const componenteMasVendido = () => {
-    let vendidos = [];
-    for (venta of ventas) {
-        for (i = 0; i < venta[6].length; i++) {
-            const componente = venta[6][i]
-            vendidos.push(componente);
-        };
-    };
-    for (i = 0; i <= vendidos.length; i++) {
-        let componente = vendidos[i];
-        if (componente === cantidadVentasComponente(vendidos[i]));
-        return componente;
-    }
-};
-
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
 fecha. */
@@ -185,20 +170,6 @@ const ventasSucursal = sucursal => {
 }
 
 // console.log(ventasSucursal("Centro")); // 990 
-
-
-const ventasSucursal = sucursal => {
-    validarSucursal(sucursal);
-    const ventasSucursal = ventas.filter (venta => venta[5] === sucursal);
-    let componentes = [];
-    ventasSucursal.forEach (venta => componentes.push (venta[6]));
-    const componentesVendidos = componentes.flat ();
-    console.log(componentesVendidos);
-    return componentesVendidos.reduce ((acumulador, componente) => {
-        return acumulador + buscarPrecio(componente);
-    }, 0 );
-}
-
 
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
@@ -231,23 +202,6 @@ const ventaPromedio = () => {//// Esta ok
 }
 
 // console.log(ventaPromedio()); // 353 
-
-const ventaPromedio = () => {//// Esta ok
-    const values = [];
-    for (venta of ventas) {
-        let precio = 0;
-        venta[6].forEach(componente => {
-            precio += buscarPrecio(componente);
-        });
-        values.push(precio)
-    }
-    let suma = 0;
-    for (i = 0; i < values.length; i++) {
-        suma += values[i];
-    }
-    let promedio = suma / values.length;
-    return Math.floor(promedio);
-}
 
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
