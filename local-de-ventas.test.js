@@ -172,6 +172,9 @@ describe('Ventas vendedora', () => {
     test('Calcular ventas totales de una vendedora', () => {
         expect(ventasVendedora('Grace')).toBe(990);
     });
+    test('Devolver cero cuando la vendedora no tiene ventas', () => {
+        expect(ventasVendedora('Sheryl')).toBe(0);
+    });
 });
 
 const ventasVendedora = (nombre) => {
