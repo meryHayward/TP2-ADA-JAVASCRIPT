@@ -224,10 +224,10 @@ const componenteMasVendido = () => {
     let vendidos = [];
     for (venta of ventas) {
         for (i = 0; i < venta[6].length; i++) {
-            const componente = venta[6][i]
+            const componente = venta[6][i];
             vendidos.push(componente);
-        };
-    };
+        }
+    }
     for (i = 0; i <= vendidos.length; i++) {
         let componente = vendidos[i];
         if (componente === cantidadVentasComponente(vendidos[i]));
