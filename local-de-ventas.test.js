@@ -162,6 +162,7 @@ const componenteMasVendido = () => {
         componenteMasVendido();
     });
 
+<<<<<<< HEAD
     test('que venta este dentro del array ventas', () => {
         let venta = ventas[3]
         expect(venta).toStrictEqual([100000003, 10, 1, 2019, "Ada", "Centro", ['Monitor ASC 543',
@@ -190,6 +191,8 @@ const componenteMasVendido = () => {
 }); */
 
 
+=======
+>>>>>>> 44936490e69f20382eeb0e3b3776e50b36a7ecf6
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
 fecha. */
@@ -203,6 +206,7 @@ const ventasSucursal = sucursal => {
 
 // console.log(ventasSucursal("Centro")); // 990 
 
+<<<<<<< HEAD
 
 const ventasSucursal = sucursal => {
     validarSucursal(sucursal);
@@ -219,6 +223,8 @@ const ventasSucursal = sucursal => {
 
 
 
+=======
+>>>>>>> 44936490e69f20382eeb0e3b3776e50b36a7ecf6
 /*6. mejorVendedora(): Devuelve el nombre de la vendedora que más ingresos generó*/
 
 const mejorVendedora = () => {
@@ -254,6 +260,7 @@ const ventaPromedio = () => {//// Esta ok
         ventaPromedio();
     });
 
+<<<<<<< HEAD
     test('que venta este dentro del array ventas', () => {
         let venta = ventas[3]
         expect(venta).toStrictEqual([100000003, 10, 1, 2019, "Ada", "Centro", ['Monitor ASC 543',
@@ -276,6 +283,9 @@ const ventaPromedio = () => {//// Esta ok
         expect(values).toEqual([320, 320, 370, 350, 300, 460]);
     });
 });  */
+=======
+// console.log(ventaPromedio()); // 353 
+>>>>>>> 44936490e69f20382eeb0e3b3776e50b36a7ecf6
 
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
