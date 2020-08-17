@@ -1,11 +1,19 @@
 {
   "name": "tp2",
   "version": "1.0.0",
-  "description": "",
+  "description": "- Se deben respetar los nombres de las funciones\r - Buena tabulación del código\r - Usar nombres claros para las variables\r - Utilizar solo let o const, y arrow functions\r - Todas las funciones deben tener test unitarios utilizando Jest, para verificar el\r correcto funcionamiento.",
   "main": "local-de-ventas.js",
   "scripts": {
     "test": "jest"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/viki-almiron/tp2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/viki-almiron/tp2/issues"
+  },
+  "homepage": "https://github.com/viki-almiron/tp2#readme"
 }

@@ -162,6 +162,20 @@ const componenteMasVendido = () => {
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
 fecha. */
 
+/*  describe('Ventas Sucursal', () => {
+    test('Tirar error cuando el nombre no se encuentra en lista de Sucursales', () => {
+        expect(() => ventasSucursal('Sucursal no existente')).toThrow('Sucursal no existente');
+    });
+    test('Calcular ventas totales de una sucursal', () => {
+        expect(ventasSucursal('Centro')).toBe(990);
+    });
+    test ('Mostrar datos solo de la primer sucursal ingresada en caso de ser dos o mas', () =>{
+        expect(ventasSucursal('Centro', 'Caballito')).toBe(990);
+    });
+}); 
+
+*/
+
 const ventasSucursal = sucursal => {
     validarSucursal(sucursal);
     return obtenerComponentesVendidos(5, sucursal).reduce ((acumulador, componente) =>{
