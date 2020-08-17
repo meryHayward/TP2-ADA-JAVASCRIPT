@@ -130,7 +130,7 @@ retorna el importe total de ventas realizadas por dicha vendedora. */
 
 const ventasVendedora = (nombre) => {
     validarVendedora(nombre);
-    return obtenerComponentesVendidos(4,nombre).reduce((acumulador, componente) => {
+    return obtenerComponentesVendidos(4, nombre).reduce((acumulador, componente) => {
         return acumulador + buscarPrecio(componente);
     }, 0);
 }
@@ -139,7 +139,40 @@ const ventasVendedora = (nombre) => {
 
 /*4. componenteMasVendido(): Devuelve el nombre del componente que más ventas
 tuvo históricamente. El dato de la cantidad de ventas es el que indica la función
-cantidadVentasComponente */ 
+cantidadVentasComponente */
+
+describe('componenteMasVendido', () => {
+    beforeEach(() => {
+        vendidos = [];
+        componenteMasVendido();
+    });
+
+    test('que venta este dentro del array ventas', () => {
+        let venta = ventas[3]
+        expect(venta).toStrictEqual([100000003, 10, 1, 2019, "Ada", "Centro", ['Monitor ASC 543',
+            'Motherboard ASUS 1200']]);
+    });
+    test('Que busque un componentes dentro de una venta', () => {
+        let venta = ventas[3];
+        let componente = venta[6];
+        expect(componente).toStrictEqual(['Monitor ASC 543',
+            'Motherboard ASUS 1200']);
+    });
+    test('que el array vendidos reciba los componentes de ventas', () => {
+        for (venta of ventas) {
+            for (i = 0; i < venta[6].length; i++) {
+                const componente = venta[6][i]
+                vendidos.push(componente);
+            };
+        };
+        expect(vendidos.length).toEqual(14);
+    });
+    test('que al pasar al pasar varios elementos a vendidos, me devuelva el mas repetido de ese array', () => {
+        vendidos = ['Monitor GPRS 3000', 'Monitor GPRS 3000', 'Motherboard MZI', 'RAM Quinston']
+        expect(cantidadVentasComponente('Monitor GPRS 3000')).toBe(3);
+    });/// este tengo una duda xq me devuelve 3 y no dos
+
+});
 
 const componenteMasVendido = () => {
     let vendidos = [];
@@ -155,8 +188,6 @@ const componenteMasVendido = () => {
         return componente;
     }
 };
-
-// console.log( componenteMasVendido() ); // Monitor GPRS 3000
 
 /*5. ventasSucursal(sucursal): recibe por parámetro el nombre de una sucursal y
 retorna el importe de las ventas totales realizadas por una sucursal sin límite de
@@ -178,7 +209,7 @@ fecha. */
 
 const ventasSucursal = sucursal => {
     validarSucursal(sucursal);
-    return obtenerComponentesVendidos(5, sucursal).reduce ((acumulador, componente) =>{
+    return obtenerComponentesVendidos(5, sucursal).reduce((acumulador, componente) => {
         return acumulador + buscarPrecio(componente);
     }, 0);
 }
@@ -198,6 +229,35 @@ const mejorVendedora = () => {
 /*7. ventaPromedio(): Debe retornar el importe promedio por venta, como un número
 entero sin decimales redondeado siempre para abajo.*/
 
+describe('ventaPromedio', () => {
+    beforeEach(() => {
+        values = [];
+        ventaPromedio();
+    });
+
+    test('que venta este dentro del array ventas', () => {
+        let venta = ventas[3]
+        expect(venta).toStrictEqual([100000003, 10, 1, 2019, "Ada", "Centro", ['Monitor ASC 543',
+            'Motherboard ASUS 1200']]);
+    });
+    test('Que busque un componentes dentro de una venta', () => {
+        let venta = ventas[3];
+        let componente = venta[6];
+        expect(componente).toStrictEqual(['Monitor ASC 543',
+            'Motherboard ASUS 1200']);
+    });
+    test('que el array values reciba el precios totales de los componentes', () => {
+        for (venta of ventas) {
+            let precio = 0;
+            venta[6].forEach(componente => {
+                precio += buscarPrecio(componente);
+            });
+            values.push(precio)
+        }
+        expect(values).toEqual([320, 320, 370, 350, 300, 460]);
+    });
+});
+
 const ventaPromedio = () => {//// Esta ok
     const values = [];
     for (venta of ventas) {
@@ -215,11 +275,9 @@ const ventaPromedio = () => {//// Esta ok
     return Math.floor(promedio);
 }
 
-// console.log(ventaPromedio()); // 353 
-
 /*8. obtenerIdVenta(): Tiene que retornar un número aleatorio entre 100000000 y
 999999999
-
+ 
 /*describe('Obtener Id venta', () => {
     test('Obtener numero random entre 100000000 y 999999999', () => {
       expect(100000000 < obtenerIdVenta() < 999999999).toBeTruthy();
@@ -246,5 +304,3 @@ const agregarVenta = (dia, mes, anio, vendedora, sucursal, componentes) => {
     ventas.push(nuevaVenta);
 }
 
-// agregarVenta(4, 2, 2019, 'Grace', 'Centro', ['Monitor GPRS 3000', 'Motherboard ASUS 1500']);
-// console.log(ventas);
